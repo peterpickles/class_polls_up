@@ -1,0 +1,32 @@
+{% extends 'mypolls/base.html %}
+{% block content %}
+
+<h1>Result</h1>
+<h2>{{ question.question.text }}</h2>
+
+<ul class ="choices">
+    {% for choice in question.choice_set.all %}
+    
+        <li>{{ choice.choice_text }} -- {{ choice.votes }} vote{{ choice.votes|pluralize }}</li>
+    {% endfor}
+</ul>
+
+<h2> Here's your cool chart</h2>
+
+{% load chart_tags %}
+{% chart %}
+     chxr=0,0,{{upper_limit}}
+     chxt=y,x
+     chxl=1:|{{ text_value}}
+     chbh=a
+     chs=440x220
+     cht=bvs
+     chco=4D89F9
+     chds=0,160
+     chd=t:{{ num_values|join:','}}
+     chtt=Horizontal+bar+chart
+{% endchart %}
+
+<a href="/polls/{{question.id}}/vote/"
+
+{% endblock %}
